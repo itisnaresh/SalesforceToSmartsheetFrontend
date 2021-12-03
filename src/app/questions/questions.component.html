@@ -1,0 +1,126 @@
+<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button> -->
+<!-- <mat-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup" label="Select Opportunity Type">
+    <form [formGroup]="firstFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="oppTypeCtrl" required>
+          <mat-option *ngFor="let type of types?.records" [value]="type?.type">{{type?.type}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button type="button" mat-button matStepperNext (click)="getQuestionsByOppType()">Next</button>
+      </div>
+      <ng-http-loader></ng-http-loader>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" label="Answer the Questions">
+    <form [formGroup]="secondFormGroup" (ngSubmit)="submit()">
+      <mat-card>
+        <div *ngFor="let row of questions; let i = index" [ngSwitch]="row.cells[2].displayValue">
+          <div *ngSwitchCase="'select'">
+            <mat-form-field appearance="fill">
+              <mat-label>{{row.cells[1].displayValue}}</mat-label>
+              <mat-select formControlName="{{row.cells[0].displayValue}}" required>
+                <mat-option *ngFor="let type of createArrayFromString(row.cells[3].displayValue)" [value]="type">
+                  {{type}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div *ngSwitchDefault>
+            <mat-form-field appearance="fill">
+              <mat-label>{{row.cells[1].displayValue}}</mat-label>
+              <input formControlName="{{row.cells[0].displayValue}}" type="{{row.cells[2].displayValue}}" matInput
+                required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button type="submit" color="primary" matStepperNext>Save</button>
+        </div>
+      </mat-card>
+      <ng-http-loader></ng-http-loader>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+    <ng-http-loader></ng-http-loader>
+  </mat-step>
+</mat-stepper> -->
+<br>
+<ng-stepper [linear]="isLinear" #stepper>
+  <cdk-step [stepControl]="firstFormGroup" label="Select Opportunity Type">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">1</div>
+      <div class="step-title">Select Type <span class="required">*</span></div>
+    </ng-template>
+    <form [formGroup]="firstFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="oppTypeCtrl" required>
+          <!-- <mat-option>None</mat-option> -->
+          <mat-option *ngFor="let type of types?.records" [value]="type?.type">{{type?.type}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button type="button" mat-button matStepperNext (click)="getQuestionsByOppType()">Next</button>
+      </div>
+      <ng-http-loader></ng-http-loader>
+    </form>
+  </cdk-step>
+  <cdk-step [stepControl]="secondFormGroup" label="Answer the Questions">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">2</div>
+      <div class="step-title">Answer Questions<span class="required">*</span></div>
+  </ng-template>
+  <form [formGroup]="secondFormGroup" (ngSubmit)="submit()">
+    <mat-card>
+      <div *ngFor="let row of questions; let i = index" [ngSwitch]="row.cells[2].displayValue">
+        <div *ngSwitchCase="'select'">
+          <mat-form-field appearance="fill">
+            <mat-label>{{row.cells[1].displayValue}}</mat-label>
+            <mat-select formControlName="{{row.cells[0].displayValue}}" required>
+              <!-- <mat-option>None</mat-option> -->
+              <mat-option *ngFor="let type of createArrayFromString(row.cells[3].displayValue)" [value]="type">
+                {{type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div *ngSwitchDefault>
+          <mat-form-field appearance="fill">
+            <mat-label>{{row.cells[1].displayValue}}</mat-label>
+            <input formControlName="{{row.cells[0].displayValue}}" type="{{row.cells[2].displayValue}}" matInput
+              required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button type="submit" color="primary" matStepperNext>Save</button>
+      </div>
+    </mat-card>
+    <ng-http-loader></ng-http-loader>
+  </form>
+  </cdk-step>
+  <cdk-step>
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">3</div>
+      <div class="step-title">Done</div>
+  </ng-template>
+  <ng-template matStepLabel>Done</ng-template>
+  <p>You are now done.</p>
+  <div>
+    <button mat-button matStepperPrevious>Back</button>
+    <button mat-button (click)="stepper.reset()">Reset</button>
+  </div>
+  <ng-http-loader></ng-http-loader>
+  </cdk-step>
+</ng-stepper>
